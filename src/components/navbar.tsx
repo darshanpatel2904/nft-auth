@@ -1,11 +1,33 @@
+"use client";
+
 import { Menu, Shield, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { cn, SHOPIFY_APP_URL } from "@/lib/utils";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback } from "react";
 
 export default function Navbar() {
-  const isMenuOpen = true;
-  const currentPage = "/";
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const isMenuOpen = searchParams.get("menu") === "true";
+  const currentPage = pathname;
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+      return params.toString();
+    },
+    [searchParams]
+  );
+
+  const handleMenu = () => {
+    isMenuOpen
+      ? router.push(pathname)
+      : router.push(`${pathname}?${createQueryString("menu", "true")}`);
+  };
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b">
       <div className="container mx-auto px-6 py-4">
@@ -50,7 +72,12 @@ export default function Navbar() {
             </Button>
           </div>
 
-          <Button variant="ghost" size="sm" className="md:hidden">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="md:hidden"
+            onClick={handleMenu}
+          >
             {isMenuOpen ? (
               <X className="h-6 w-6" />
             ) : (

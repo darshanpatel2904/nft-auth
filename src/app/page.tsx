@@ -251,8 +251,8 @@ export default function Home() {
               What Our Customers Say
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Join hundreds of successful merchants who've transformed their
-              stores with NFT Auth.
+              Join hundreds of successful merchants who&apos;ve transformed
+              their stores with NFT Auth.
             </p>
           </div>
 
@@ -272,7 +272,7 @@ export default function Home() {
                     ))}
                   </div>
                   <p className="text-gray-600 mb-6 italic">
-                    "{testimonial.content}"
+                    &quot;{testimonial.content}&quot;
                   </p>
                   <div>
                     <p className="font-semibold text-gray-900">
